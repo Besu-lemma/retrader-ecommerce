@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const prductSchema = new Schema({
+const productSchema = new Schema({
     name:{
         type: String,
         required: true,
@@ -25,6 +25,10 @@ const prductSchema = new Schema({
     }
     
     },
+   status: {
+  type:String,
+  enum:['available','sold out]']
+    },
     inStock:{
         type: Boolean,
         default: true,
@@ -38,4 +42,4 @@ const prductSchema = new Schema({
 
 const Product = new mongoose.model("Product", productSchema)
 
-export default Product
+export default Product;
