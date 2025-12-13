@@ -12,6 +12,11 @@ const CategorySchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+subCategory:{
+type:String,
+unique: true,
+trim:true
+    },
     createdAt: {
       type: Date,
       default: Date.now,

@@ -1,6 +1,21 @@
 import mongoose from mongoose
 
 const userSchema = new mongoose.Schema({
+  firstName:{
+type:String,
+required: true,
+trim:true,
+
+  },
+   lastName:{
+type:String,
+required: true,
+trim:true,
+  },
+  phoneNumber:{
+    type:Number,
+    required:true,
+  },
   username: {
     type: String,
     required: true,
@@ -13,6 +28,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
+  },
+  role:{
+    type:String,
+    enum:[User, Admin]
   },
   password: {
     type: String,
