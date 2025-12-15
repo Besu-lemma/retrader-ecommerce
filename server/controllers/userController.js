@@ -1,43 +1,58 @@
-import User from "../models/User.js";
+import userServices from "../services/userServices.js";
 
-// Create new user
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
-    const user = await User.create(req.body);
+    const user = await userServices.createUser(req.body);
     res.status(201).json(user);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
-};
-
-// Get all users
-const getAllUsers = async (req, res) => {
+}; 
+const getAllUsers = async (req, res, next) => {
   try {
-    const users = await User.find().sort({ name: -1 });
-    res.status(200).json(users);
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 20;
+    const result = await userServices.getAllUsers({ page, limit });
+    res.status(200).json(result);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-// Delete user
-const deleteUser = async (req, res) => {
+const getUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
-
-    const user = await User.findByIdAndDelete(id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json({ message: "User deleted successfully" });
+    const user = await userServices.getUserById(id);
+    res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-export default {
+const updateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const user = await userServices.updateUser(req.body, id);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const deleted = await userServices.deleteUser(id);
+    res.status(200).json({ message: "User deleted successfully", data: deleted });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default{
   createUser,
   getAllUsers,
-  deleteUser,
-};
+  updateUser,
+  getUserById,
+  deleteUser
+}

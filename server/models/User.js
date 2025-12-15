@@ -29,6 +29,15 @@ trim:true,
     lowercase: true,
     trim: true,
   },
+  gender: {
+			type: String,
+			required: true,
+			enum: ["male", "female"],
+		},
+		profilePic: {
+			type: String,
+			default: "",
+		},
   role:{
     type:String,
     enum:[User, Admin]
