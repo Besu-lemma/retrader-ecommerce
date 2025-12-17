@@ -1,7 +1,7 @@
 import messageService from "../services/messageService.js";
 
 // SEND MESSAGE
-export const sendMessage = async (req, res, next) => {
+ const sendMessage = async (req, res, next) => {
 	try {
 		const { message } = req.body;
 		const { id: receiverId } = req.params;
@@ -20,7 +20,7 @@ export const sendMessage = async (req, res, next) => {
 };
 
 // GET MESSAGES
-export const getMessages = async (req, res, next) => {
+ const getMessages = async (req, res, next) => {
 	try {
 		const { id: userToChatId } = req.params;
 		const senderId = req.user._id;
@@ -35,3 +35,7 @@ export const getMessages = async (req, res, next) => {
 		next(error);
 	}
 };
+export default{
+	sendMessage,
+	getMessages
+}
