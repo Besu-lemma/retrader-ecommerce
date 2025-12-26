@@ -3,7 +3,7 @@ import logo from "@/assets/logo.svg";
 const Navbar = () => {
   const navItems = [
     { label: "Home", href: "#" },
-    { label: "Product", href: "#product" },
+    { label: "shop", href: "#product" },
     { label: "Message", href: "#message" },
     { label: "Cart", href: "#cart" },
     { label: "Account", href: "#account" },
